@@ -45,3 +45,4 @@
 8.	http://ros.org
 9. Morgan Quigley, Brian Gerkey & William D. Smart. Programming robots with ROS. Автоматные модели: глава 13, State machines
 10. Использование текстур в мире Gazebo: [1](http://answers.gazebosim.org/question/4761/how-to-build-a-world-with-real-image-as-ground-plane/) [2](http://answers.gazebosim.org/question/7922/ground-plane-texture-image/)
+11. [Turtlebot docs](http://learn.turtlebot.com/)
