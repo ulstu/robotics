@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b6f0b92-355e-4c0e-85d4-0a1515382ef6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/practice/2019/lab01.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/practice/2019/sample/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/robotics_cad.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/robotics_cad.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice/installation.md" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2018/installation.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice/lab01.md" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2018/lab01.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice/lab02.md" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2018/lab02.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice/lab03.md" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2018/lab03.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice/2019/lab01.md" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2019/lab01.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,9 +15,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/practice/2019/lab01.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="653">
-                <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="373">
+                <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
               </first_editor>
               <second_editor />
             </state>
@@ -141,12 +133,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1521459742482</updated>
-      <workItem from="1552406967280" duration="3133000" />
+      <workItem from="1552406967280" duration="3453000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3133000" />
+    <option name="totallyTimeSpent" value="3453000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="71" y="-7" width="1472" height="878" extended-state="6" />
@@ -195,9 +187,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/practice/2019/lab01.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="653">
-            <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="373">
+            <caret line="21" column="21" lean-forward="true" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
           </first_editor>
           <second_editor />
         </state>
