@@ -41,9 +41,11 @@ class Robot:
         print("Motor speed set to {} {}".format(left_speed, right_speed))
 
     def get_lidar_data(self):
-        (e, state, forceVector, torqueVector) =  vrep.simxReadForceSensor(self.client_id, self.lidar_handle1,vrep.simx_opmode_buffer)
-        self.check_error_code(e, "simxReadForceSensor error")
-        return e, state, forceVector, torqueVector
+        e, data = vrep.simxGetStringSignal(self.client_id, "lidarMeasuredData", vrep.simx_opmode_buffer)
+        self.check_error_code(e, "simxGetStringSignal lidar error")
+        measuredData = vrep.simxUnpackFloats(data)
+        point_data = np.reshape(measuredData, (int(len(measuredData) / 3), 3))
+        return e, point_data
 
 
     def get_proximity_data(self):
@@ -58,15 +60,16 @@ class Robot:
         (errorCode, detectionState, detectedPoint, detectedObjectHandle,
          detectedSurfaceNormalVector) = vrep.simxReadProximitySensor(self.client_id, self.proximity_handle,
                                                                      vrep.simx_opmode_streaming)
-        (e, state, forceVector, torqueVector) =  vrep.simxReadForceSensor(self.client_id, self.lidar_handle1,vrep.simx_opmode_streaming)
-        self.check_error_code(e, "simxReadForceSensor error")
+        e, data = vrep.simxGetStringSignal(self.client_id, "lidarMeasuredData", vrep.simx_opmode_streaming)
+        self.check_error_code(e, "simxGetStringSignal lidar error")
         while vrep.simxGetConnectionId(self.client_id) != -1:
             is_detected, distance, vector = self.get_proximity_data()
             if is_detected:
                print("distance: {} {}".format(distance, vector))
-            print(self.get_lidar_data())
+            e, lidar_data = self.get_lidar_data()
+            print("shape: {}; data: {}".format(len(lidar_data), lidar_data))
             simulationTime = vrep.simxGetLastCmdTime(self.client_id)
-            time.sleep(0.5)
+            time.sleep(1)
 
         vrep.simxFinish(self.client_id)
 
