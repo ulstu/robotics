@@ -69,7 +69,7 @@ class Robot:
             e, lidar_data = self.get_lidar_data()
             print("shape: {}; data: {}".format(len(lidar_data), lidar_data))
             simulationTime = vrep.simxGetLastCmdTime(self.client_id)
-            time.sleep(1)
+            time.sleep(0.1)
 
         vrep.simxFinish(self.client_id)
 
