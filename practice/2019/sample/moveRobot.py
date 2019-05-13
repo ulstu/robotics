@@ -1,12 +1,14 @@
+MAP_SIZE_PIXELS         = 500
+MAP_SIZE_METERS         = 20
+
 import vrep
 import sys
 import time
 import numpy as np
+import math
+import time
 import matplotlib.pyplot as plt
-
-MAP_SIZE_PIXELS         = 500
-MAP_SIZE_METERS         = 20
-LIDAR_DEVICE            = '/dev/ttyACM0'
+import cv2
 from breezyslam.algorithms import RMHC_SLAM
 from breezyslam.sensors import URG04LX as LaserModel
 #from breezylidar import URG04LX as Lidar
@@ -45,6 +47,20 @@ class Robot:
             return False
         return True
 
+    def draw_lidar_data(self, points):
+        w = 512
+        central_point = (int(w / 2), int(w / 2))
+        img = np.zeros(shape=[w, w, 3], dtype=np.uint8) * 255
+        angle = -30
+        angle_step = 240.0 / len(points)
+        for point in points:
+            x = int(w / 2 - point * w * math.cos(math.radians(angle)) / 10)
+            y = int(w / 2 - point * w * math.sin(math.radians(angle)) / 10)
+            angle += angle_step
+            cv2.line(img, central_point, (x, y), (170, 0, 20))
+        cv2.imshow("lidar", img)
+        cv2.waitKey(1)
+
     def set_motor_speed(self, left_speed, right_speed):
         e = vrep.simxSetJointTargetVelocity(self.client_id, self.left_motor_handle, left_speed, vrep.simx_opmode_oneshot_wait)
         self.check_error_code(e, "SetJointTargetVelocity for left motor got error code")
@@ -54,10 +70,6 @@ class Robot:
 
     def get_lidar_data(self):
         point_data, dist_data = [], []
-        #e, data = vrep.simxGetStringSignal(self.client_id, "lidarMeasuredData", vrep.simx_opmode_buffer)
-        #if self.check_error_code(e, "simxGetStringSignal points error"):
-        #    measuredData = vrep.simxUnpackFloats(data)
-        #    point_data = np.reshape(measuredData, (int(len(measuredData) / 3), 3))
 
         e, data = vrep.simxGetStringSignal(self.client_id, "lidarMeasuredData", vrep.simx_opmode_buffer)
         if self.check_error_code(e, "simxGetStringSignal lidar distances error"):
@@ -66,9 +78,7 @@ class Robot:
                 dist_data = vrep.simxUnpackFloats(buf[1])
                 measuredData = vrep.simxUnpackFloats(buf[0])
                 point_data = np.reshape(measuredData, (int(len(measuredData) / 3), 3))
-
         return e, point_data, dist_data
-
 
     def get_proximity_data(self):
         (e, detectionState, detectedPoint, detectedObjectHandle,
@@ -77,26 +87,8 @@ class Robot:
         self.check_error_code(e, "simxReadProximitySensor error")
         return detectionState, np.linalg.norm(detectedPoint), detectedSurfaceNormalVector
 
-    def run_SLAM(self, scan_data):
-        # Create an RMHC SLAM object with a laser model and optional robot model
-        slam = RMHC_SLAM(LaserModel(), MAP_SIZE_PIXELS, MAP_SIZE_METERS)
-        # Set up a SLAM display
-        viz = MapVisualizer(MAP_SIZE_PIXELS, MAP_SIZE_METERS, 'SLAM')
-        # Initialize empty map
-        mapbytes = bytearray(MAP_SIZE_PIXELS * MAP_SIZE_PIXELS)
-        while True:
-            # Update SLAM with current Lidar scan
-            slam.update(scan_data)
-            # Get current robot position
-            x, y, theta = slam.getpos()
-            # Get current map bytes as grayscale
-            slam.getmap(mapbytes)
-            # Display map and robot pose, exiting gracefully if user closes it
-            if not viz.display(x/1000., y/1000., theta, mapbytes):
-                exit(0)
-
     def start_simulation(self):
-        self.set_motor_speed(0.8, 0.0)
+        self.set_motor_speed(0.8, 0)
         (errorCode, detectionState, detectedPoint, detectedObjectHandle,
          detectedSurfaceNormalVector) = vrep.simxReadProximitySensor(self.client_id, self.proximity_handle,
                                                                      vrep.simx_opmode_streaming)
@@ -110,6 +102,9 @@ class Robot:
         # Initialize empty map
         mapbytes = bytearray(MAP_SIZE_PIXELS * MAP_SIZE_PIXELS)
 
+        res, v0 = vrep.simxGetObjectHandle(self.client_id, 'Vision_sensor', vrep.simx_opmode_oneshot_wait)
+        res, resolution, image = vrep.simxGetVisionSensorImage(self.client_id, v0, 0, vrep.simx_opmode_streaming)
+
         while vrep.simxGetConnectionId(self.client_id) != -1:
             is_detected, distance, vector = self.get_proximity_data()
             if is_detected:
@@ -117,8 +112,9 @@ class Robot:
             e, lidar_data, dist_data = self.get_lidar_data()
             point_data_len = len(lidar_data)
             dist_data_len = len(dist_data)
+            dist_data = dist_data[::-1]
             print("shape: {}; data: {}".format(point_data_len, dist_data_len))
-
+            self.draw_lidar_data(dist_data[0: -2])
             # Update SLAM , with current Lidar scan
             slam.update(dist_data[0:-2])
             # Get current robot position
@@ -127,8 +123,22 @@ class Robot:
             # Get current map bytes as grayscale
             slam.getmap(mapbytes)
             # Display map and robot pose, exiting gracefully if user closes it
-            if not viz.display(x/1000., y/1000., theta, mapbytes):
+            if not viz.display(x/10., y/10., theta, mapbytes):
                 exit(0)
+
+            err, resolution, image = vrep.simxGetVisionSensorImage(self.client_id, v0, 0, vrep.simx_opmode_buffer)
+            if err == vrep.simx_return_ok:
+                img = np.array(image, dtype=np.uint8)
+                img.resize([resolution[1], resolution[0], 3])
+                fimg = cv2.flip(img, 0)
+                cv2.imshow('vision sensor', fimg)
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
+            elif err == vrep.simx_return_novalue_flag:
+                print("no image yet")
+                pass
+            else:
+                print(err)
 
             simulationTime = vrep.simxGetLastCmdTime(self.client_id)
             time.sleep(0.1)
