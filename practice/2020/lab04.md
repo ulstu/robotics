@@ -2,10 +2,12 @@
 ## Распознавание изображений с использованием OpenCV
 2019/2020 учебный год, ИВТ, весенний семестр
 
-В среде ROS необходимо разработать программу для робота и проверить ее работоспособность во встроенном эмуляторе Gazebo на примере робота TurtleBot3.
-Робот должен по заранее заданным координатам подсчитать количество объектов на поле, заданных вариантом задания. При этом количество объектов, отличных от целевых, должно быть минимум в 2 раза больше.
+1. В среде ROS необходимо разработать программу для робота и проверить ее работоспособность во встроенном эмуляторе Gazebo на примере робота TurtleBot3.
+Робот должен по заранее заданным координатам подсчитать, сколько раз он встретил объект на поле. Тип объекта задается вариантом. При этом количество объектов, отличных от целевых, должно быть минимум в 2 раза больше.
 Выбор среды эмуляции (манифест) и вид робота остается на усмотрение студента.
 При запуске программы должна появляться среда эмуляции с роботом, в которой робот должен автоматически выполнить задание. 
+
+2. Разработать управляющую программу, которая обеспечит перемещение робота по виртуальной дороге в виртуальной среде AutoRace. [Описание запуска](http://emanual.robotis.com/docs/en/platform/turtlebot3/autonomous_driving/autorace_gazebo)
 
 ### Варианты заданий:
 1.	Красный шар
@@ -34,12 +36,9 @@
 1.	М.Шахинпур. Курс робототехники.
 2.	Юревич Е.И. Основы робототехники.
 3.	http://ros.org
-4.	http://learn.turtlebot.com/
+4.  [Turtlebot3 docs](http://emanual.robotis.com/docs/en/platform/turtlebot3/autonomous_driving/autorace_gazebo)
 5.	http://gazebosim.org/
 6.	https://geektimes.ru/post/281760/ - описание установки ROS в среде Ubuntu на русском языке
-7.	http://wiki.ros.org/turtlesim
-8.	http://ros.org
-9. Morgan Quigley, Brian Gerkey & William D. Smart. Programming robots with ROS. Автоматные модели: глава 13, State machines
-10. Использование текстур в мире Gazebo: [1](http://answers.gazebosim.org/question/4761/how-to-build-a-world-with-real-image-as-ground-plane/) [2](http://answers.gazebosim.org/question/7922/ground-plane-texture-image/)
-11. [Turtlebot docs](http://learn.turtlebot.com/)
-12. [OpenCV install](https://docs.microsoft.com/en-us/cognitive-toolkit/setup-opencv-on-linux) 
+7. Morgan Quigley, Brian Gerkey & William D. Smart. Programming robots with ROS. Автоматные модели: глава 13, State machines
+8. Использование текстур в мире Gazebo: [1](http://answers.gazebosim.org/question/4761/how-to-build-a-world-with-real-image-as-ground-plane/) [2](http://answers.gazebosim.org/question/7922/ground-plane-texture-image/)
+9. [OpenCV install](https://docs.microsoft.com/en-us/cognitive-toolkit/setup-opencv-on-linux) 

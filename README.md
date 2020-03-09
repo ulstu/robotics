@@ -35,4 +35,5 @@
 4. Morgan Quigley, Brian Gerkey & William D. Smart. Programming robots with ROS
 5. Джозеф Лентин. Изучение робототехники с помощью python.
 6. YoonSeok Pyo, HanCheol Cho, RyuWoon Jung, TaeHoon Lim. ROS robot programming. From the basic concept to practical programming and robot application.
+7. [EManual for turtlebot3](http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/)
 см. материалы на ftp://vt.ustu/incoming/kir/Robotics
