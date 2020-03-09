@@ -113,7 +113,7 @@ class Robot:
             point_data_len = len(lidar_data)
             dist_data_len = len(dist_data)
             dist_data = dist_data[::-1]
-            print("shape: {}; data: {}".format(point_data_len, dist_data_len))
+            print("points len: {}; dist len: {}".format(point_data_len, dist_data_len))
             self.draw_lidar_data(dist_data[0: -2])
             # Update SLAM , with current Lidar scan
             slam.update(dist_data[0:-2])
@@ -123,7 +123,7 @@ class Robot:
             # Get current map bytes as grayscale
             slam.getmap(mapbytes)
             # Display map and robot pose, exiting gracefully if user closes it
-            if not viz.display(x/10., y/10., theta, mapbytes):
+            if not viz.display(x/1000., y/1000., theta, mapbytes):
                 exit(0)
 
             err, resolution, image = vrep.simxGetVisionSensorImage(self.client_id, v0, 0, vrep.simx_opmode_buffer)
