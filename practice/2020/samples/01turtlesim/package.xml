@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>lec02</name>
+  <name>01turtlesim</name>
   <version>0.0.1</version>
-  <description>The lec02 package</description>
+  <description>The 01turtlesim package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->

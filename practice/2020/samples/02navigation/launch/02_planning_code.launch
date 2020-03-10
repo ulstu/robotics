@@ -1,0 +1,13 @@
+<launch>
+	<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_house.launch" />
+	<include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+	<include file="$(find turtlebot3_navigation)/launch/turtlebot3_navigation.launch" >
+		<arg name="map_file" value="/home/hiber/catkin_ws/map.yaml" />
+<!--
+		<arg name="initial_pose_x" value="-3" />
+		<arg name="initial_pose_y" value="1" />
+		<arg name="initial_pose_z" value="0" />
+-->
+	</include>
+	<node name="turtlebot_script" pkg="02navigation" type="navigate.py" output="screen" />
+</launch>

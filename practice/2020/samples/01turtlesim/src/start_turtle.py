@@ -6,7 +6,7 @@ from geometry_msgs.msg import Twist
 
 class GoForward():
     def __init__(self):
-        rospy.init_node('lec02_script', anonymous=False)
+        rospy.init_node('turtlesim_script', anonymous=False)
     	rospy.loginfo("To stop Turtle CTRL + C")
 
         rospy.on_shutdown(self.shutdown)
