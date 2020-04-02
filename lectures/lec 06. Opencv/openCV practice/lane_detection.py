@@ -4,8 +4,8 @@ import numpy as np
 import cv2
 import math
 import os
-from moviepy.editor import VideoFileClip
-from IPython.display import HTML
+#from moviepy.editor import VideoFileClip
+#from IPython.display import HTML
 
 
 # example from https://medium.com/@galen.ballew/opencv-lanedetection-419361364fc0

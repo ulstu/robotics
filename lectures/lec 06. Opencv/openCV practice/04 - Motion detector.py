@@ -18,10 +18,11 @@ frame_exist = True
 
 def get_only_big_contours(contours):
     biggest_contours = []
-    area_threshold = 220
+    area_threshold_max = 400
+    area_threshold_min = 240
 
     for c in contours:
-        if cv2.contourArea(c) > area_threshold:
+        if cv2.contourArea(c) > area_threshold_min and cv2.contourArea(c) < area_threshold_max:
             biggest_contours.append(c)
 
     return biggest_contours
