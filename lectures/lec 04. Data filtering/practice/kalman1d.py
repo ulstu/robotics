@@ -3,7 +3,7 @@ import math
 import matplotlib.pyplot as plt
 
 N = 100     # number of samples
-a = 0.1     # velocity
+a = 0.1     # acceleration
 sigmaPsi = 1 # model error variance
 sigmaEta = 50 # sensor error variance
 x, z = np.zeros(N), np.zeros(N)
