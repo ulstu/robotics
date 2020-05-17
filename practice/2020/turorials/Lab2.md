@@ -88,6 +88,7 @@ rosrun map_server map_saver -f ~/map
 
 ## Полезные ссылки
 
-[Документация turtlebot3]: http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/
-[Документация gazebo]: http://gazebosim.org/
+Документация turtlebot3 -  http://emanual.robotis.com/docs/en/platform/turtlebot3/overview/
+
+Документация gazebo - http://gazebosim.org/
 
