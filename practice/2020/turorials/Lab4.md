@@ -252,7 +252,10 @@ else:
 
 ## Полезные ссылки
 
-[Список доступных материалов в gazebo]: http://wiki.ros.org/simulator_gazebo/Tutorials/ListOfMaterials
-[Сайт для подбора hsv-цветов]: https://alloyui.com/examples/color-picker/hsv.html
-[Обнаружение дороги]: https://medium.com/@mithi/advanced-lane-finding-using-computer-vision-techniques-7f3230b6c6f2
-[Отслеживание объектов]: https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/
+Список доступных материалов в gazebo - http://wiki.ros.org/simulator_gazebo/Tutorials/ListOfMaterials
+
+Сайт для подбора hsv-цветов - https://alloyui.com/examples/color-picker/hsv.html
+
+Обнаружение дороги - https://medium.com/@mithi/advanced-lane-finding-using-computer-vision-techniques-7f3230b6c6f2
+
+Отслеживание объектов - https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/
