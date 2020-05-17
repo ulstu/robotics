@@ -50,4 +50,4 @@ def las_callback(msg)
 
 ## Полезные ссылки
 
-[Лекция по ПИД регуляторам]: https://github.com/ulstu/robotics_cad/tree/master/lectures/lec%2005.%20PID%20regulation
+Лекция по ПИД регуляторам - https://github.com/ulstu/robotics_cad/tree/master/lectures/lec%2005.%20PID%20regulation
