@@ -218,6 +218,6 @@ roslaunch НАЗВАНИЕ_ВАШЕГО_ПАКЕТА НАЗВАНИЕ_LAUNCH_Ф�
 
 ## Полезные ссылки
 
-[]: http://wiki.ros.org/melodic/Installation/Ubuntu "Установка ros"
-[]: http://wiki.ros.org/catkin/Tutorials "Туториалы по catkin"
+[Установка ros]: (http://wiki.ros.org/melodic/Installation/Ubuntu)
+[Туториалы по catkin]: (http://wiki.ros.org/catkin/Tutorials)
 
