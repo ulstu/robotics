@@ -67,6 +67,7 @@ def image_projection(image):
 ![](https://marcosnietoblog.files.wordpress.com/2014/02/sample.png?w=640)
 
 ## Обнаружение дороги
+### Способ 1
 
 Из изображения дороги выделяются по цвету левая и правая линии:
 
@@ -148,6 +149,33 @@ pts = numpy.hstack((left_line_pts, right_line_pts))
 center_line = numpy.array([numpy.transpose(numpy.vstack([center, plot_y]))])
 cv2.fillPoly(image, numpy.int_([pts]), (0, 255, 0))
 ```
+
+### Способ 2
+
+Также можно обнаружить дорогу и посчитать расстояния до линий.
+
+Для этого сначала необходимо наложить нужную маску. (Пример есть в первом способе) А далее выделить контуры с помощью:
+
+```
+_, cnts, _ = cv2.findContours(mask_yellow, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+```
+
+Где cnts - лист с точками контура.
+
+Далее каждый контур можно вписать в прямоугольник минимальной площадью и получить его точки.
+
+```
+ for cnt in cnts:
+     rect = cv2.minAreaRect(cnt)
+     box = cv2.boxPoints(rect)
+     box = np.int0(box)
+     A, B, C, D = box
+```
+
+В A,B,C,D будут находиться координаты соответствующих точек.
+
+Далее можно определять то, что это линия по ее пропорциям и считать расстояние до нее от центра изображения, зная его ширину.
+
 
 ## Обнаружение объектов
 
