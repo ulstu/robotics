@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>02navigation</name>
-  <version>0.0.0</version>
+  <name>ex_02_navigation</name>
+  <version>0.0.1</version>
   <description>The 02navigation package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->

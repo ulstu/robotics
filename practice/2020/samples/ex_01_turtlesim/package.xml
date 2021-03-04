@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>01turtlesim</name>
+  <name>ex_01_turtlesim</name>
   <version>0.0.1</version>
   <description>The 01turtlesim package</description>
 
