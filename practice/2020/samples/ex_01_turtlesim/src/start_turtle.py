@@ -15,7 +15,7 @@ class GoForward():
         rospy.on_shutdown(self.shutdown)
         self.cmd_vel = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
 
-        r = rospy.Rate(1)
+        r = rospy.Rate(2)
         i = 1
         while not rospy.is_shutdown():
             rospy.loginfo(i)

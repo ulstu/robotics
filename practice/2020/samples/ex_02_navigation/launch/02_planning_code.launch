@@ -9,5 +9,5 @@
 		<arg name="initial_pose_z" value="0" />
 -->
 	</include>
-	<node name="turtlebot_script" pkg="02navigation" type="navigate.py" output="screen" />
+	<node name="turtlebot_script" pkg="ex_02_navigation" type="navigate.py" output="screen" />
 </launch>
