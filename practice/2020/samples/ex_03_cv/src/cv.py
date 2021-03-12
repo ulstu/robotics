@@ -39,7 +39,7 @@ class ImageConverter:
         if max_rects[2] * max_rects[3] > 50:
             border_x = max_rects[0] if is_right else max_rects[0] + max_rects[2]
         else:
-            border_x = -1
+            border_x = mask.shape[1] if is_right else -1
         return mask, border_x
 
     def detect_lines(self, image):
