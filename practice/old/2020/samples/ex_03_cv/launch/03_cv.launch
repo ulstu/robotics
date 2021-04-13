@@ -1,0 +1,6 @@
+<launch>
+	<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_autorace.launch" />
+	<include file="$(find turtlebot3_teleop)/launch/turtlebot3_teleop_key.launch" />
+	<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_gazebo_rviz.launch" />
+	<node name="image_converter" pkg="ex_03_cv" type="cv.py" output="screen" />
+</launch>

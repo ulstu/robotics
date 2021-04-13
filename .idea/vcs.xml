@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lectures/lec 05. PID regulation/src/ivPID" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/lectures/lec 05. PID regulation/src/pid-autotune" vcs="Git" />
   </component>
 </project>
