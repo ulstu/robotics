@@ -15,19 +15,20 @@ class PidControl():
         rospy.loginfo("To stop press CTRL + C")
 
         rospy.on_shutdown(self.shutdown)
-        self.cmd_vel = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
+        # to move robot from python script disable turtle_teleop_key
+        self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
         self.left = rospy.Publisher('/left', Float64, queue_size=10)
         self.right = rospy.Publisher('/right', Float64, queue_size=10)
         self.laser_sub = rospy.Subscriber("/scan", LaserScan, self.laser_callback)
 
-        r = rospy.Rate(2)
+        r = rospy.Rate(1)
         i = 1
         while not rospy.is_shutdown():
             #rospy.loginfo(i)
             move_cmd = Twist()
-            move_cmd.linear.x = 1
+            move_cmd.linear.x = 0.2
             move_cmd.linear.y = 0
-            move_cmd.angular.z = 10 / i
+            move_cmd.angular.z = 0.1
             self.cmd_vel.publish(move_cmd)
             r.sleep()
             i += 1

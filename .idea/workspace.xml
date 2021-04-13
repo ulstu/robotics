@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b6f0b92-355e-4c0e-85d4-0a1515382ef6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/launch/02_pid.launch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/lec 05. PID regulation/src/pid.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/lectures/lec 05. PID regulation/src/pid.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/launch/02_pid.launch" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/launch/02_pid.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/src/pid.py" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/src/pid.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -207,9 +209,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.pid" />
       <item itemvalue="Python.kalman1d" />
       <item itemvalue="Python.kalman" />
+      <item itemvalue="Python.pid" />
     </list>
     <recent_temporary>
       <list>
