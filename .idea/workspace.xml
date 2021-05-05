@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4b6f0b92-355e-4c0e-85d4-0a1515382ef6" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lectures/lec 05. PID regulation/src/pid.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/lectures/lec 05. PID regulation/src/pid.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/launch/02_pid.launch" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/launch/02_pid.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/src/pid.py" beforeDir="false" afterPath="$PROJECT_DIR$/practice/2021/samples/ex_02_navigation/src/pid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/lec 04. Data filtering/lec 04. Data filtering.odg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/lec 04. Data filtering/lec 04. Data filtering.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/lec 04. Data filtering/practice/kalman.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lectures/lec 04. Data filtering/practice/kalman1d.py" beforeDir="false" afterPath="$PROJECT_DIR$/lectures/lec 04. Data filtering/practice/kalman1d.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +120,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.pid">
+  <component name="RunManager" selected="Python.kalman1d">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="robotics_cad" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -209,9 +210,9 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.pid" />
       <item itemvalue="Python.kalman1d" />
       <item itemvalue="Python.kalman" />
-      <item itemvalue="Python.pid" />
     </list>
     <recent_temporary>
       <list>
@@ -235,6 +236,8 @@
       <workItem from="1554662953902" duration="351000" />
       <workItem from="1554830503857" duration="7097000" />
       <workItem from="1618214903030" duration="5003000" />
+      <workItem from="1618483631065" duration="17000" />
+      <workItem from="1620047055169" duration="9069000" />
     </task>
     <servers />
   </component>
@@ -284,6 +287,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/robotics$kalman1d.coverage" NAME="kalman1d Coverage Results" MODIFIED="1620214655628" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lectures/lec 04. Data filtering/practice" />
+    <SUITE FILE_PATH="coverage/robotics$kalman.coverage" NAME="kalman Coverage Results" MODIFIED="1620207689103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lectures/lec 04. Data filtering/practice" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/practice/lab02.md" />
