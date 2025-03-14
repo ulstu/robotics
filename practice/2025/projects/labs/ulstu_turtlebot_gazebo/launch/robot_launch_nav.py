@@ -22,14 +22,6 @@ def generate_launch_description():
         parameters=[{'use_sim_time': USE_SIM_TIME}]
     )
 
-    scan_pid_node = Node(
-        package=PACKAGE_NAME,
-        executable='scan_pid_node',
-        name='scan_pid_node',
-        output='screen',
-        parameters=[{'use_sim_time': USE_SIM_TIME}]
-    )
-
     teleop_node = Node(
         package='turtlebot3_teleop',
         executable='teleop_keyboard',
@@ -41,6 +33,7 @@ def generate_launch_description():
 
     launch_file_dir = os.path.join(get_package_share_directory('turtlebot3_gazebo'), 'launch')
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
+    nav_ros = get_package_share_directory('turtlebot3_navigation2')
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     x_pose = LaunchConfiguration('x_pose', default='-4.0')
@@ -64,6 +57,16 @@ def generate_launch_description():
             os.path.join(pkg_gazebo_ros, 'launch', 'gzclient.launch.py')
         )
     )
+    
+    package_dir = get_package_share_directory(PACKAGE_NAME)
+    map_yaml_file = os.path.join(package_dir, 'resource', 'my_map.yaml')
+    params_file = os.path.join(package_dir, 'resource', 'params.yaml')
+    nav_cmd = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(nav_ros, 'launch', 'navigation2.launch.py')
+        ),
+        launch_arguments={'use_sim_time': use_sim_time, 'map': map_yaml_file, 'params_file': params_file}.items()
+    )
 
     robot_state_publisher_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -84,9 +87,8 @@ def generate_launch_description():
 
     # Описание launch-файла
     ld = LaunchDescription([
-        #sim_node,
+        sim_node,
         teleop_node,
-        scan_pid_node,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=sim_node,  # Указываем, для какого узла отслеживать завершение
@@ -100,5 +102,6 @@ def generate_launch_description():
     ld.add_action(gzclient_cmd)
     ld.add_action(robot_state_publisher_cmd)
     ld.add_action(spawn_turtlebot_cmd)
+    ld.add_action(nav_cmd)
 
     return ld
