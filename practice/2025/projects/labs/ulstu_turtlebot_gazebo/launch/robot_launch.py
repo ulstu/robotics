@@ -84,7 +84,7 @@ def generate_launch_description():
 
     # Описание launch-файла
     ld = LaunchDescription([
-        #sim_node,
+        sim_node,
         teleop_node,
         scan_pid_node,
         launch.actions.RegisterEventHandler(

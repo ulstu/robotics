@@ -4,9 +4,6 @@
 ros2 run tf2_tools view_frames
 ```
 
-```bash
-ros2 launch turtlebot3_navigation2 navigation2.launch.py use_sim_time:=true map:=my_map.yaml
-```
 
 ```bash
 ros2 run nav2_map_server map_saver_cli -f my_map
