@@ -5,9 +5,7 @@ from launch.substitutions.path_join_substitution import PathJoinSubstitution
 from launch import LaunchDescription
 from launch_ros.actions import Node
 import launch
-from ament_index_python.packages import get_package_share_directory, get_packages_with_prefixes
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.actions import IncludeLaunchDescription
+from ament_index_python.packages import get_package_share_directory
 from webots_ros2_driver.webots_launcher import WebotsLauncher
 from webots_ros2_driver.webots_controller import WebotsController
 from webots_ros2_driver.wait_for_controller_connection import WaitForControllerConnection
@@ -17,8 +15,6 @@ def generate_launch_description():
     package_dir = get_package_share_directory('ulstu_turtlebot')
     world = LaunchConfiguration('world')
     mode = LaunchConfiguration('mode')
-    use_nav = LaunchConfiguration('nav', default=True)
-    use_slam = LaunchConfiguration('slam', default=False)
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
     webots = WebotsLauncher(
@@ -45,21 +41,27 @@ def generate_launch_description():
         arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'base_footprint'],
     )
 
-    sim_node = Node(
+    # Нода для следования вдоль стенки
+    wall_follower_node = Node(
         package='ulstu_turtlebot',
-        executable='ulstu_turtlebot_node',
-        name='ulstu_turtlebot_node',
+        executable='wall_follower_node',
+        name='wall_follower_node',
         output='screen',
-        parameters=[{'use_sim_time': True}]
-    )
-
-    teleop_node = Node(
-        package='turtlebot3_teleop',
-        executable='teleop_keyboard',
-        name='teleop_keyboard',
-        output='screen',
-        parameters=[{'use_sim_time': True}],
-        prefix='xterm -e',
+        parameters=[{
+            'use_sim_time': True,
+            'target_distance': 0.5,      # Расстояние до стенки (м)
+            'linear_speed': 0.3,          # Линейная скорость (м/с)
+            'follow_side': 'right',       # Сторона следования: 'left' или 'right'
+            'max_linear_speed': 0.5,      # Максимальная линейная скорость (м/с)
+            'max_angular_speed': 1.5,     # Максимальная угловая скорость (рад/с)
+            'min_front_clearance': 0.35,  # Минимальный безопасный зазор спереди (м)
+            'min_rear_clearance': 0.30,   # Минимальный безопасный зазор сзади (м)
+            'search_back_speed': 0.08,    # Скорость движения назад при потере стены (м/с)
+            'search_rotate_speed': 0.55,  # Скорость вращения при поиске стены (рад/с)
+            'kp': 1.0,                    # Пропорциональный коэффициент
+            'ki': 0.01,                   # Интегральный коэффициент
+            'kd': 0.3                     # Дифференциальный коэффициент
+        }]
     )
 
     # ROS control spawners
@@ -88,6 +90,7 @@ def generate_launch_description():
         mappings = [('/diffdrive_controller/cmd_vel', '/cmd_vel'), ('/diffdrive_controller/odom', '/odom')]
     else:
         mappings = [('/diffdrive_controller/cmd_vel_unstamped', '/cmd_vel'), ('/diffdrive_controller/odom', '/odom')]
+    
     turtlebot_driver = WebotsController(
         robot_name='TurtleBot3Burger',
         parameters=[
@@ -100,38 +103,10 @@ def generate_launch_description():
         respawn=True
     )
 
-    # Navigation
-    navigation_nodes = []
-    os.environ['TURTLEBOT3_MODEL'] = 'burger'
-    nav2_map = "/home/hiber/ros2_ws/src/ulstu_turtlebot/resource/my_map.yaml" #os.path.join(package_dir, 'resource', 'turtlebot3_burger_example_map.yaml')
-    nav2_params = os.path.join(package_dir, 'resource', 'nav2_params.yaml')
-    if 'turtlebot3_navigation2' in get_packages_with_prefixes():
-        turtlebot_navigation = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(
-                get_package_share_directory('turtlebot3_navigation2'), 'launch', 'navigation2.launch.py')),
-            launch_arguments=[
-                ('map', nav2_map),
-                ('params_file', nav2_params),
-                ('use_sim_time', 'true'),
-            ],
-            condition=launch.conditions.IfCondition(use_nav))
-        navigation_nodes.append(turtlebot_navigation)
-
-    # SLAM
-    if 'turtlebot3_cartographer' in get_packages_with_prefixes():
-        turtlebot_slam = IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(
-                get_package_share_directory('turtlebot3_cartographer'), 'launch', 'cartographer.launch.py')),
-            launch_arguments=[
-                ('use_sim_time', 'true'),
-            ],
-            condition=launch.conditions.IfCondition(use_slam))
-        navigation_nodes.append(turtlebot_slam)
-
-    # Wait for the simulation to be ready to start navigation nodes
+    # Wait for the simulation to be ready to start ROS control
     waiting_nodes = WaitForControllerConnection(
         target_driver=turtlebot_driver,
-        nodes_to_start=navigation_nodes + ros_control_spawners
+        nodes_to_start=ros_control_spawners
     )
 
     return LaunchDescription([
@@ -150,16 +125,6 @@ def generate_launch_description():
             default_value='true',
             description='Use simulation time'
         ),
-        DeclareLaunchArgument(
-            'slam',
-            default_value='False',
-            description='Enable SLAM'
-        ),
-        DeclareLaunchArgument(
-            'nav',
-            default_value='True',
-            description='Enable navigation'
-        ),
         webots,
         webots._supervisor,
 
@@ -168,8 +133,7 @@ def generate_launch_description():
 
         turtlebot_driver,
         waiting_nodes,
-        #sim_node,
-        teleop_node,
+        wall_follower_node,
 
         # This action will kill all nodes once the Webots simulation has exited
         launch.actions.RegisterEventHandler(

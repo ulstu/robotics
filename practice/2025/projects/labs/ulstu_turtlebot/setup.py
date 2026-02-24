@@ -33,7 +33,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'ulstu_turtlebot_node = ulstu_turtlebot.ulstu_turtlebot_node:main'
+            'ulstu_turtlebot_node = ulstu_turtlebot.ulstu_turtlebot_node:main',
+            'wall_follower_node = ulstu_turtlebot.wall_follower_node:main'
         ],
     },
 )

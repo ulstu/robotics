@@ -24,11 +24,20 @@ def generate_launch_description():
         output='screen',
         parameters=[{'use_sim_time': USE_SIM_TIME}]
     )
+    turtlesim_teleop_node = Node(
+        package='turtlesim',
+        executable='turtle_teleop_key',
+        name='turtle_teleop_key',
+        output='screen',
+        parameters=[{'use_sim_time': USE_SIM_TIME}],
+        prefix='xterm -e',
+    )
 
     # Описание launch-файла
     return LaunchDescription([
         sim_node,
         turtlesim_node,
+        turtlesim_teleop_node,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=turtlesim_node,  # Указываем, для какого узла отслеживать завершение

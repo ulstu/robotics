@@ -56,7 +56,7 @@ class SimNode(Node):
             else:
                 move_cmd.linear.x = 1.0
                 move_cmd.linear.y = 0.0
-                move_cmd.angular.z = 1.0 #10.0 / self._tick
+                move_cmd.angular.z = 0.8 #10.0 / self._tick
             self._twist_publisher.publish(move_cmd)
             self._tick += 1
         except Exception as err:

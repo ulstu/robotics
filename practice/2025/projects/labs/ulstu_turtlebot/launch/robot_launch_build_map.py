@@ -17,8 +17,8 @@ def generate_launch_description():
     package_dir = get_package_share_directory('ulstu_turtlebot')
     world = LaunchConfiguration('world')
     mode = LaunchConfiguration('mode')
-    use_nav = LaunchConfiguration('nav', default=True)
-    use_slam = LaunchConfiguration('slam', default=False)
+    use_nav = LaunchConfiguration('nav', default=False)
+    use_slam = LaunchConfiguration('slam', default=True)
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
 
     webots = WebotsLauncher(
@@ -103,14 +103,14 @@ def generate_launch_description():
     # Navigation
     navigation_nodes = []
     os.environ['TURTLEBOT3_MODEL'] = 'burger'
-    nav2_map = "/home/hiber/ros2_ws/src/ulstu_turtlebot/resource/my_map.yaml" #os.path.join(package_dir, 'resource', 'turtlebot3_burger_example_map.yaml')
+    nav2_map = os.path.join(package_dir, 'resource', 'turtlebot3_burger_example_map.yaml')
     nav2_params = os.path.join(package_dir, 'resource', 'nav2_params.yaml')
     if 'turtlebot3_navigation2' in get_packages_with_prefixes():
         turtlebot_navigation = IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(
                 get_package_share_directory('turtlebot3_navigation2'), 'launch', 'navigation2.launch.py')),
             launch_arguments=[
-                ('map', nav2_map),
+                # ('map', nav2_map),
                 ('params_file', nav2_params),
                 ('use_sim_time', 'true'),
             ],
@@ -152,12 +152,12 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'slam',
-            default_value='False',
+            default_value='true',
             description='Enable SLAM'
         ),
         DeclareLaunchArgument(
             'nav',
-            default_value='True',
+            default_value='false',
             description='Enable navigation'
         ),
         webots,
@@ -168,7 +168,7 @@ def generate_launch_description():
 
         turtlebot_driver,
         waiting_nodes,
-        #sim_node,
+        sim_node,
         teleop_node,
 
         # This action will kill all nodes once the Webots simulation has exited
