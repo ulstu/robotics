@@ -16,6 +16,7 @@ def generate_launch_description():
     world = LaunchConfiguration('world')
     mode = LaunchConfiguration('mode')
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
+    wall_follower_params = LaunchConfiguration('wall_follower_params')
 
     webots = WebotsLauncher(
         world=PathJoinSubstitution([package_dir, 'worlds', world]),
@@ -47,21 +48,10 @@ def generate_launch_description():
         executable='wall_follower_node',
         name='wall_follower_node',
         output='screen',
-        parameters=[{
-            'use_sim_time': True,
-            'target_distance': 0.5,      # Расстояние до стенки (м)
-            'linear_speed': 0.3,          # Линейная скорость (м/с)
-            'follow_side': 'right',       # Сторона следования: 'left' или 'right'
-            'max_linear_speed': 0.5,      # Максимальная линейная скорость (м/с)
-            'max_angular_speed': 1.5,     # Максимальная угловая скорость (рад/с)
-            'min_front_clearance': 0.35,  # Минимальный безопасный зазор спереди (м)
-            'min_rear_clearance': 0.30,   # Минимальный безопасный зазор сзади (м)
-            'search_back_speed': 0.08,    # Скорость движения назад при потере стены (м/с)
-            'search_rotate_speed': 0.55,  # Скорость вращения при поиске стены (рад/с)
-            'kp': 1.0,                    # Пропорциональный коэффициент
-            'ki': 0.01,                   # Интегральный коэффициент
-            'kd': 0.3                     # Дифференциальный коэффициент
-        }]
+        parameters=[
+            wall_follower_params,
+            {'use_sim_time': use_sim_time}
+        ]
     )
 
     # ROS control spawners
@@ -124,6 +114,11 @@ def generate_launch_description():
             'use_sim_time',
             default_value='true',
             description='Use simulation time'
+        ),
+        DeclareLaunchArgument(
+            'wall_follower_params',
+            default_value=os.path.join(package_dir, 'resource', 'wall_follower_params.yaml'),
+            description='Path to ROS2 parameters file for wall follower node'
         ),
         webots,
         webots._supervisor,
